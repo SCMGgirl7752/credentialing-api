@@ -1,0 +1,9 @@
+{
+    "locationId": "",
+    "locationName": "Test Location",
+    "locationAddress": "123 Test St",
+    "locationState": "CA",
+    "locationZip": "90001",
+    "locationWebsite": "http://testlocation.com",
+    "locationPhone": "123-456-7890"
+}
