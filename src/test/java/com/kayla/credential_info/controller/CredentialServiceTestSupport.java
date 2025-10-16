@@ -5,6 +5,8 @@
 
 package com.kayla.credential_info.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -57,5 +59,18 @@ class CredentialServiceTestSupport {
         clone.setLocationID(null);
         return credentialController.createLocation(clone);
     }
+
+    protected List<LocationData> insertTwoLocations() {
+        LocationData location1 = insertLocation(buildInsertLocation(1));
+        LocationData location2 = insertLocation(buildInsertLocation(2));
+
+        return List.of(location1, location2);
+    }
+
+    private List<LocationData> retrieveAllLocations() {
+        // TODO Auto-generated method stub
+        return credentialController.retrieveAllLocations();
+    }
+
 }
 

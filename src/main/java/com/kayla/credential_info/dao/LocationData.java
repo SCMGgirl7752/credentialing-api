@@ -94,7 +94,7 @@ public class LocationData {
     provider.setProviderId(this.providerId);
     provider.setFirstName(this.firstName);
     provider.setLastName(this.lastName);
-    provider.setNpinNumber(this.npinNumber);
+    provider.setNpinNumber(this.npiNumber);
 
     //pl.setProvider(provider);
     //return pl;

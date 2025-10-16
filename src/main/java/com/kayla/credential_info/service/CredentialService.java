@@ -1,15 +1,22 @@
 package com.kayla.credential_info.service;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.NoSuchElementException;
 
+import com.kayla.credential_info.entity.Location;
+import com.kayla.credential_info.entity.ProviderLocation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
 import com.kayla.credential_info.dao.LocationDao;
 import com.kayla.credential_info.dao.LocationData;
-import com.kayla.credential_info.entity.ProviderLocation;
+
 
 @Service
 public class CredentialService {
@@ -50,6 +57,20 @@ public class CredentialService {
 
     private Location findLocationById(Long locationId) {
         return locationDao.findByID(locationID).orElseThrow(()-> new NoSuchElementException("Location with ID=" + locationId + " was not found."));
+    }
+
+    @Transactional(readOnly = true)
+    public List<LocationData> retrieveAllLocations() {
+        // TODO Auto-generated method stub
+        List<Location> locationEntity = locationDao.findAll();
+        List<LocationData> locationDtos = new LinkedList<>();
+
+        for (Location location : locationEntity) {
+            LocationData locationData = new LocationData(location);
+            locationDtos.add(locationData);
+        }
+
+        return locationDtos;
     }
 
 }
