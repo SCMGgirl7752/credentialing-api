@@ -18,6 +18,16 @@ class CredentialServiceTestSupport {
 
     private static final String LOCATION_TABLE = "location";
 
+    private static final String INSERT_PROVIDER_1_SQL = """
+        INSERT INTO provider (provider_id, first_name, last_name, npi_number)
+        VALUES (1, 'John', 'Doe', '1234567890');
+        """;
+
+    private static final String INSERT_PROVIDER_2_SQL = """
+        INSERT INTO provider (provider_id, first_name, last_name, npi_number)
+        VALUES (2, 'Jane', 'Smith', '0987654321');
+        """;
+
     // @formatter:off
     private LocationData insertAddress1 = new LocationData(
         1L,
@@ -36,6 +46,16 @@ class CredentialServiceTestSupport {
         "www.runtime.com",
         "111-111-test"
     );
+
+    private LocationData updateAddress1 = new LocationData(
+                1L,
+        "456 Elm St, Springfield",
+        "ID",
+        "62702",
+        "www.anothertest.com",
+        "222-222-test"
+    );
+
     //@formatter:on
 
     @Autowired
@@ -67,10 +87,37 @@ class CredentialServiceTestSupport {
         return List.of(location1, location2);
     }
 
-    private List<LocationData> retrieveAllLocations() {
+    protected Object assertThat(int actual) {
         // TODO Auto-generated method stub
-        return credentialController.retrieveAllLocations();
+        return null;
     }
 
+        protected List<LocationData> retrieveAllLocations() {
+            // TODO Auto-generated method stub
+            return credentialController.retrieveAllLocations();
+    }
+
+        protected LocationData buildUpdateLocation() {
+        // TODO Auto-generated method stub
+        return updateAddress1;
+    }
+
+        protected LocationData updateLocation(LocationData expected) {
+        // TODO Auto-generated method stub
+        return credentialController.updateLocation(locationData.getLocationId(),
+        locationData);
+    }
+
+
+    protected void insertProvider(int which) {
+        String providerSql = which == 1 ? INSERT_PROVIDER_1_SQL : INSERT_PROVIDER_2_SQL;
+
+        jdbcTemplate.update(providerSql);
+    }
+
+    protected LocationData rowsInProviderTable() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
 

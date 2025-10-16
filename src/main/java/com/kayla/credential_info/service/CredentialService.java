@@ -73,6 +73,13 @@ public class CredentialService {
         return locationDtos;
     }
 
+    @Transactional(readOnly = false)
+    public void deleteLocation(Long locationId) {
+        // TODO Auto-generated method stub
+        Location location = findLocationById(locationId);
+        locationDao.delete(location);
+    }
+
 }
 
 //TODO: Test with ARC and see if you can get and post data correctly.
