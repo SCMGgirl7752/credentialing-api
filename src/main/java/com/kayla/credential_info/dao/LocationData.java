@@ -2,8 +2,11 @@ package com.kayla.credential_info.dao;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.kayla.credential_info.entity.Location;
 import com.kayla.credential_info.entity.Provider;
 import com.kayla.credential_info.entity.ProviderLocation;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationData {
 
-    private Long locationId;
+    private Location locationId;
     private String locationName;
     private String locationAddress;
     private String locationState;
@@ -22,8 +25,8 @@ public class LocationData {
     private String locationPhone;
     private Set<ProviderLocationData> providerLocation = new HashSet<>();
 
-    public LocationData(ProviderLocation location){ //should these be with the location since I am pulling from there or should I link to the provider lcoation?
-        this.locationId = providerLocation.getLocationId();
+    public LocationData(Location location){ //should these be with the location since I am pulling from there or should I link to the provider lcoation?
+        this.locationId = location.getLocationId();
         this.locationName = location.getLocationName();
         this.locationAddress = location.getLocationAddress();
         this.locationState = location.getLocationState();
@@ -32,11 +35,11 @@ public class LocationData {
         this.locationPhone = location.getLocationPhone();
         
         for (ProviderLocation pl : location.getProviderLocation()) {
-            this.providerLocation.add(new ProviderLocationData(pl));
+            this.providerLocation.add(new ProviderLocationData(pl.getProviderId()));
         }
     }
 
-    public LocationData(Long locationId, String locationName, String locationAddress, String locationState, String locationZip,
+    public LocationData(Location locationId, String locationName, String locationAddress, String locationState, String locationZip,
         String locationWebsite, String locationPhone) {
             this.locationId = locationId;
             this.locationName = locationName;
@@ -47,10 +50,10 @@ public class LocationData {
             this.locationPhone = locationPhone;
     }
 
-    public ProviderLocation toLocation() {
-        ProviderLocation location = new ProviderLocation();// check here for the same error of location or provider location
+    public Location toLocation() {
+        Location location = new Location();
         location.setLocationId(this.locationId);
-        location.setLocationName(this.locationName);// check if I need the "this." or not here
+        location.setLocationName(this.locationName);
         location.setLocationAddress(this.locationAddress);
         location.setLocationState(this.locationState);
         location.setLocationZip(this.locationZip);
@@ -60,10 +63,6 @@ public class LocationData {
     for (ProviderLocationData pld : providerLocation) {
         location.getProviderLocation().add(pld.toProviderLocation());
     }
-    //for (ProviderLocationData pld : this.providerLocation) {
-    //    ProviderLocation pl = pld.toProviderLocation();
-    //    pl.setLocation(location); // wire the relationship
-    //    location.getProviderLocation().add(pl); // add to the list
         return location;
     }
 
@@ -76,10 +75,9 @@ public class LocationData {
     private String lastName;
     private Long npiNumber;
 
-    public ProviderLocationData(ProviderLocation pl) {
-        this.providerLocationId = pl.getProviderLocationId();
-        
-        Provider provider = pl.getProvider();
+    public ProviderLocationData(Provider provider) {
+        this.providerId = provider.getProviderId();
+
         this.providerId = provider.getProviderId();
         this.firstName = provider.getFirstName();
         this.lastName = provider.getLastName();
@@ -94,7 +92,7 @@ public class LocationData {
     provider.setProviderId(this.providerId);
     provider.setFirstName(this.firstName);
     provider.setLastName(this.lastName);
-    provider.setNpinNumber(this.npiNumber);
+    provider.setNpiNumber(this.npiNumber);
 
     //pl.setProvider(provider);
     //return pl;
@@ -105,5 +103,6 @@ public class LocationData {
 
         return pl;
 
+    }
     }
 }

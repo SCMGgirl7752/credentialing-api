@@ -72,7 +72,7 @@ class CredentialControllerTest extends CredentialServiceTestSupport{
 
         assertThat(rowsInLocationTable()) .isOne();
         assertThat(rowsInProviderTable()).isEqualTo(2);// made method for rows in provider table; can we do this also???
-        assertThat(rowsInProviderLocationTable()).isEqualTo(4);
+        assertThat(rowsInProviderLocationTable()).isEqualTo(4);// check video part 22:00 for the testSupport part of this if we can fix/change it.
         int providerRows = rowsInProviderTable(); // double check this is correct between tables.
 
         // When: the location is deleted

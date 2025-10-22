@@ -14,7 +14,7 @@ public class ProviderLocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long providerLocationId;
 
     @ManyToOne
     @JoinColumn(name = "provider_id")
