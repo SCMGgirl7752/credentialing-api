@@ -48,11 +48,11 @@ public class CredentialController {
     }
 
     @PutMapping("/location/{locationId}")
-    public LocationData updateLocation(@RequestBody Long locationId, 
+    public LocationData updateLocation(@PathVariable Long locationId,
         @RequestBody LocationData locationData) {
-        locationData.setLocationId(locationId);
-        log.info("Updating location: {}", locationData);
-        return credentialService.saveLocation(locationData);
+        //locationData.setLocationId(locationId);
+        //log.info("Updating location: {}", locationData);
+        return credentialService.updateLocation(locationId, locationData);
     }
 
     public LocationData createLocation(LocationData locationData) {

@@ -26,7 +26,7 @@ public class CredentialService {
 
     @Transactional(readOnly = false)
     public LocationData saveLocation(LocationData locationData) {
-        ProviderLocation location = locationData.toLocation();
+        Location location = locationData.toLocation();
         Location dbLocation = locationDao.save(location);
         //System.out.println("Saving location: " + locationData);
         return new LocationData(dbLocation);
@@ -39,7 +39,7 @@ public class CredentialService {
         ObjectMapper mapper = new ObjectMapper();
         LocationData locationData = mapper.readValue(entity, LocationData.class);
 
-        ProviderLocation location = new ProviderLocation(locationData); // assuming constructor exists
+        Location location = new Location(locationData); // assuming constructor exists
         locationDao.save(location);
 
         return "Location saved successfully!";
@@ -54,9 +54,20 @@ public class CredentialService {
         Location location = findLocationById(locationId);
         return new LocationData(location);
     }
+// New?
+    @Transactional(readOnly = false)
+public LocationData updateLocation(Long locationId, LocationData locationData) {
+    Location existingLocation = findLocationById(locationId); // ensures the location exists
 
+    locationData.setLocationId(existingLocation); // passes full Location object
+    Location updatedLocation = locationData.toLocation(); // builds updated entity
+    Location savedLocation = locationDao.save(updatedLocation); // persists changes
+
+    return new LocationData(savedLocation); // returns updated DTO
+}
+// End New?
     private Location findLocationById(Long locationId) {
-        return locationDao.findByID(locationID).orElseThrow(()-> new NoSuchElementException("Location with ID=" + locationId + " was not found."));
+        return locationDao.findByID(locationId).orElseThrow(()-> new NoSuchElementException("Location with ID=" + locationId + " was not found."));
     }
 
     @Transactional(readOnly = true)

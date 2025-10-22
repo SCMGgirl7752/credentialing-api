@@ -5,4 +5,6 @@ import com.kayla.credential_info.entity.Location;
 
 public interface LocationDao extends JpaRepository<Location, Location> {
 
+    public Object findByID(Long locationId);
+
 }
