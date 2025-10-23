@@ -108,6 +108,7 @@ class CredentialServiceTestSupport {
         locationData);
     }
 
+    
 
     protected void insertProvider(int which) {
         String providerSql = which == 1 ? INSERT_PROVIDER_1_SQL : INSERT_PROVIDER_2_SQL;
@@ -115,9 +116,13 @@ class CredentialServiceTestSupport {
         jdbcTemplate.update(providerSql);
     }
 
-    protected LocationData rowsInProviderTable() {
-        // TODO Auto-generated method stub
-        return null;
+    protected int rowsInProviderLocationTable() {
+        String sql = "SELECT COUNT(*) FROM provider_location";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    protected void deleteLocation(Long locationId) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
 
