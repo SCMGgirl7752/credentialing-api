@@ -81,6 +81,3 @@ public class CredentialController {
     }
 
 }
-
-
-// TODO: fix endpoints and finish with debugging
