@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.kayla.credential_info.controller;
 
 import java.util.List;
@@ -13,6 +8,7 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 
 import com.kayla.credential_info.controller.model.CredentialController;
 import com.kayla.credential_info.dao.LocationData;
+import com.kayla.credential_info.entity.Location;
 
 class CredentialServiceTestSupport {
 
@@ -29,32 +25,38 @@ class CredentialServiceTestSupport {
         """;
 
     // @formatter:off
-    private LocationData insertAddress1 = new LocationData(
-        1L,
-        "123 Main St, Springfield",
-        "IL",
-        "62701",
-        "www.test.com",
-        "111-222-test"
-    );
+    private LocationData insertAddress1() {
+        LocationData data = new LocationData();
+    data.setLocationId(1L);
+    data.setLocationName("123 Main St. Springfield");
+    data.setLocationState("IL");
+    data.setLocationZip("62701");
+    data.setLocationWebsite("www.test.com");
+    data.setLocationPhone("111-222-test");
+    return data;
+    }
 
-    private LocationData insertAddress2 = new LocationData(
-        2L,
-        "111 First St, Springfield",
-        "MO",
-        "65801",
-        "www.runtime.com",
-        "111-111-test"
-    );
+    private LocationData insertAddress2() {
+        LocationData data = new LocationData();
+    data.setLocationId(2L);
+    data.setLocationName("111 First St, Springfield");
+    data.setLocationState("MO");
+    data.setLocationZip("65801");
+    data.setLocationWebsite("www.runtime.com");
+    data.setLocationPhone("111-111-test");
+    return data;
+    }
 
-    private LocationData updateAddress1 = new LocationData(
-                1L,
-        "456 Elm St, Springfield",
-        "ID",
-        "62702",
-        "www.anothertest.com",
-        "222-222-test"
-    );
+    private LocationData updateAddress1() {
+        LocationData data = new LocationData();
+    data.setLocationId(1L);
+    data.setLocationName("456 Elm St., Springfield");
+    data.setLocationState("ID");
+    data.setLocationZip("62702");
+    data.setLocationWebsite("www.anothertest.com");
+    data.setLocationPhone("222-222-test");
+    return data;
+    }
 
     //@formatter:on
 
@@ -65,8 +67,7 @@ class CredentialServiceTestSupport {
     private CredentialController credentialController;
 
     protected LocationData buildInsertLocation(int which) {
-        // TODO Auto-generated method stub
-        return which == 1 ? insertAddress1 : insertAddress2;
+        return which == 1 ? insertAddress1() : insertAddress2();
     }
     protected int rowsInLocationTable() {
         return JdbcTestUtils.countRowsInTable(jdbcTemplate, LOCATION_TABLE);
@@ -76,7 +77,7 @@ class CredentialServiceTestSupport {
         Location location = locationData.toLocation();
         LocationData clone = new LocationData(location);
 
-        clone.setLocationID(null);
+        clone.setLocationId(null);
         return credentialController.createLocation(clone);
     }
 
@@ -99,13 +100,11 @@ class CredentialServiceTestSupport {
 
         protected LocationData buildUpdateLocation() {
         // TODO Auto-generated method stub
-        return updateAddress1;
+        return updateAddress1();
     }
 
-        protected LocationData updateLocation(LocationData expected) {
-        // TODO Auto-generated method stub
-        return credentialController.updateLocation(locationData.getLocationId(),
-        locationData);
+    protected LocationData updateLocation(LocationData expected) {
+        return credentialController.updateLocation(expected.getLocationId(), expected);
     }
 
     

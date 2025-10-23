@@ -62,6 +62,10 @@ public class CredentialController {
         //return locationData;
     }
 
+        public static Long getLocationId() {
+        return null;
+    }
+
     @GetMapping("/location")
     public List<LocationData> retrieveAllLocations() {
         log.info("Retrieving all locations");

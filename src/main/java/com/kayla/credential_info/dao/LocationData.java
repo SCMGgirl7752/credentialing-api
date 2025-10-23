@@ -10,7 +10,6 @@ import com.kayla.credential_info.entity.ProviderLocation;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// TODO: fix endpoints and finish with debugging
 
 @Data
 @NoArgsConstructor
@@ -93,13 +92,6 @@ public class LocationData {
     provider.setFirstName(this.firstName);
     provider.setLastName(this.lastName);
     provider.setNpiNumber(this.npiNumber);
-
-    //pl.setProvider(provider);
-    //return pl;
-
-    //    Provider provider = new Provider();
-    //    provider.setProviderId(this.providerId);
-    //    pl.setProvider(provider);
 
         return pl;
 
