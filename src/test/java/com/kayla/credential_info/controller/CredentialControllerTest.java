@@ -2,21 +2,24 @@ package com.kayla.credential_info.controller;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.kayla.credential_info.controller.model.CredentialController;
 import com.kayla.credential_info.dao.LocationData;
 
-@SpringBootTest(webEnviroment = WebEnviroment).NONE, classes = CredentialController.class)
+@SpringBootTest(webEnvironment = WebEnvironment.NONE, classes = CredentialController.class)
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
-class CredentialControllerTest extends CredentialServiceTestSupport{
+public class CredentialControllerTest extends CredentialServiceTestSupport{
 
     @Test
-    Void testInsertLocation() {
+    void testInsertLocation() {
         // Given: A new Location request
         LocationData request = buildInsertLocation(1);
         LocationData expected = buildInsertLocation(1);
@@ -29,24 +32,24 @@ class CredentialControllerTest extends CredentialServiceTestSupport{
 
         // And: There is one row in the location table.
         assertThat(rowsInLocationTable()).isEqualTo(1);
-        return null;
+
     }
 
     @Test
-    Void testRetrieveAllLocations() {
+    void testRetrieveAllLocations() {
         // Given: Two locations in the location table
-        List<LocationData> expected = new insertTwoLocations();
+        List<LocationData> expected = insertTwoLocations();
         // When: all locations are retrieved
         List<LocationData> actual = retrieveAllLocations();
         // Then: the retrieved locations are the same as expected.
         assertThat(actual) .isEqualTo(expected);
-        return null;
+
     }
 
 
 
     @Test
-    Void testUpdateLocation() {
+    void testUpdateLocation() {
         // Given: A location and an update request
         insertLocation(buildInsertLocation(1));
         LocationData expected = buildUpdateLocation();
@@ -59,10 +62,10 @@ class CredentialControllerTest extends CredentialServiceTestSupport{
 
         //And: there is one row in the location table.
         assertThat(rowsInLocationTable()).isEqualTo(1);
-}
+
 
     @Test
-    Void testDeleteLocation() {
+    void testDeleteLocation() {
         // Given: A location in the location table
         LocationData locationData = insertLocation(buildInsertLocation(1));
         Long locationId = locationData.getLocationId();
@@ -85,6 +88,7 @@ class CredentialControllerTest extends CredentialServiceTestSupport{
 
         // And: the number of rows in the provider table has not changed.
         assertThat(rowsInProviderTable()).isEqualTo(providerRows);
+
     }
 
     

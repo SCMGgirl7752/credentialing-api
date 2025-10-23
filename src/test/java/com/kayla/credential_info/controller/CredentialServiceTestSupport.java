@@ -87,7 +87,7 @@ class CredentialServiceTestSupport {
         return List.of(location1, location2);
     }
 
-    protected Object assertThat(int actual) {
+    protected Object assertThat(LocationData actual) {
         // TODO Auto-generated method stub
         return null;
     }

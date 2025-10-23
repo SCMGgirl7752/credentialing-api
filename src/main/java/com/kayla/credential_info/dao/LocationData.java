@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationData {
 
-    private Location locationId;
+    private Long locationId;
     private String locationName;
     private String locationAddress;
     private String locationState;
@@ -25,7 +25,7 @@ public class LocationData {
     private String locationPhone;
     private Set<ProviderLocationData> providerLocation = new HashSet<>();
 
-    public LocationData(Location location){ //should these be with the location since I am pulling from there or should I link to the provider lcoation?
+    public LocationData(Location location){
         this.locationId = location.getLocationId();
         this.locationName = location.getLocationName();
         this.locationAddress = location.getLocationAddress();
@@ -39,7 +39,7 @@ public class LocationData {
         }
     }
 
-    public LocationData(Location locationId, String locationName, String locationAddress, String locationState, String locationZip,
+    public LocationData(Long locationId, String locationName, String locationAddress, String locationState, String locationZip,
         String locationWebsite, String locationPhone) {
             this.locationId = locationId;
             this.locationName = locationName;
